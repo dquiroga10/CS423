@@ -1,0 +1,75 @@
+\documentclass[11pt]{article}
+
+\usepackage{exscale}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{times,mathptm}
+\usepackage{epsfig}
+
+\textwidth 6.5truein          
+\textheight 9.0truein
+\oddsidemargin 0.0in
+\topmargin -0.6in
+
+\parindent 0pt          
+\parskip 5pt
+\def\baselinestretch{1.1}
+
+\begin{document}
+
+\begin{LARGE}
+\centerline {\bf CSci 423 Homework 9}
+\end{LARGE}
+\vskip 0.25cm
+
+\centerline {Due:12:30 pm, Tuesday, 11/26}
+\centerline{Daniel Quiroga}
+
+Collaborators:
+
+\begin{enumerate}
+
+\item (1, 1, 1, 3 points) In class, we learned that $A_D$ is non-TR, $A_{TM}$ and $HALT_{TM}$ are TR but non-TD. What can you say about their complements? Circle the correct answers below.
+\begin{enumerate}
+\item ${\overline A_D}$ is \qquad (i) TD; \qquad (ii) TR but non-TD; \qquad (iii) non-TR. ANSWER: ii
+\item ${\overline A_{TM}}$ is \qquad (i) TD; \qquad (ii) TR but non-TD; \qquad (iii) non-TR. ANSWER: iii
+\item ${\overline {HALT}_{TM}}$ is \qquad (i) TD; \qquad (ii) TR but non-TD; \qquad (iii) non-TR. ANSWER: iii
+\end{enumerate}
+
+In addition, justify your answer to (a) by giving a proof.
+
+
+\item (6 points) Prove that $ES_{TM}=\{<M>\ |\ M{\rm\ accepts\ }\epsilon\}$ is non-TD. (Hint: Reduce from $A_{TM}$.) \newline 
+Assume $ES_{TM}$ is TD. Then there is a Turing Machine R that decides $ES_{TM}$. \newline So TM R given a Turing Machine M it will accept if $\epsilon \in L(M)$ or reject otherwise. We will try to define a Turing Machine S that decides $A_{TM}$ (reduction sign)  with this information. \newline 
+Define TM M' = on input x $\rightarrow$ Run M on w. \newline 
+$L(M') = \sum^* if\  w \in L(M) | \  \emptyset\ otherwise $ \newline 
+M' accpets $\epsilon$ iff $w \in L(M)$ \newline Then we have a turning machine S that would decide  $A_{TM} \rightarrow$ CONTRADICTION! \newline 
+$ES_{TM}$ is Turing-undecidable. 
+
+\item (6 points) Let $T=\{<M>\ |\ M{\rm\ is\ a\ TM\ that\ accepts\ }w^R{\rm\ whenever\ it\ accepts\ }w\}$. 
+Recall that $w^R$ is the reverse of $w$. Prove that $T$ is non-TD. 
+
+Hints: (1) Reduce from $A_{TM}$. (2) For any $M$ and $w$, can you define a TM $M_1$ such that $L(M_1)=\{01, 10\}$ if $M$ accepts $w$ and $L(M_1)=\{01\}$ if $M$ does not accept $w$?
+
+
+
+\item (6 points) Prove that it is undecidable whether $L(M_1)\subseteq L(M_2)$ for any given TMs $M_1$ and $M_2$. (Hint: Reduce from $EQ_{TM}$.)\newline 
+In order to prove equality or inequality using subsets we need two principles to hold: for equality we need  $L(M_1)\subseteq L(M_2)$ and  $L(M_2)\subseteq L(M_1)$ to both come out true. If one of them fails than we have inequality. \newline 
+We first assume that the subset problem is TD. Then there must be a turning machine that decides it. \newline 
+We design a Turning Machine E that will accept the input $<M_1, M_2>$: accept if the first input is a subset of the second, reject otherwise. We will try to define a Turning machine S that decides $EQ_{TM}$. Since this subset is a smaller part of the entire equality theorem. \newline 
+Define E = on input x $\rightarrow$ run input $<M_1, M_2>$ if it accepts, then run $<M_2, M_1>$ if it accepts then have TM S accept, if any steps rejects have TM S reject. E accpets on both of the inputs iff $L(M_1) = L(M_2)$ iff S accepts $<M_1, M_2>$. \newline 
+We have designed a TM S that decides $EQ_{TM} \rightarrow$ CONTRADICTION!  \newline 
+The problem is Turing-undecidable
+
+\item (6 points) Prove that the question ``Does $L(M)$ contain any string of length $5$'' is undecidable. (Hint: Reduce from $A_{TM}$.)
+We assume that the question is decidable. Then there must be TM R that decides the question So TM R give another TM M will accept if the length of the string is exactly 5, reject otherwise. We will try to define TM S that decides $A_{TM}$ with this information. \newline 
+Define TM M' = on input x $\rightarrow$ Run M on w. \newline 
+$L(M') = \sum^* if\  w \in L(M) | \  \emptyset\ otherwise $ \newline 
+M' accepts $w of length 5$ iff $w \in L(M)$ \newline 
+Then this would mean that TM S would be able to decide $A_{TM} \rightarrow$ CONTRADICITION! \newline 
+The question is undecidable. 
+
+\end{enumerate}
+
+\end{document}

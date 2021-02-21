@@ -1,0 +1,91 @@
+\documentclass[11pt]{article}
+
+\usepackage{exscale}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{times,mathptm}
+\usepackage{epsfig}
+
+\textwidth 6.5truein          
+\textheight 9.0truein
+\oddsidemargin 0.0in
+\topmargin -0.6in
+
+\parindent 0pt          
+\parskip 5pt
+\def\baselinestretch{1.1}
+
+\begin{document}
+
+\begin{LARGE}
+\centerline {\bf CSci 423 Homework 4}
+\end{LARGE}
+\vskip 0.25cm
+
+\centerline{Due: 12:30 pm, Thursday, 10/10/19}
+\centerline{Daniel Quiroga}
+
+\begin{enumerate}
+
+\item (1, 6, 2 points) Determine whether or not the following languages are regular. Justify your answers with proofs.
+\begin{enumerate}
+\item $L_1=\{0^n1^n\ |\ n\ge 0\}\cup \{0^n1^m\ |\ m,n\ge 0\}$ \newline
+The first language is a subset to the second language. Therefore the union would depend on the second. The second language can be written as $0*1*$ in RE therefore the language is regular. 
+\item $L_2=\{0^n1^n\ |\ n\ge0\}\cup\{0^n1^{n+2}\ |\ n\ge0\}$ \newline
+From the class notes, we know that the left side is non-regular. The second one can be dispproved using the pumping lemma \newline 
+Assume the language is a RL, Then PL apples to the language. \newline 
+There exist a constant P \newline 
+select s = $0^{P}1^{P+2}$ which is an element of the language and has length greater than (or equal to P). \newline 
+= $0..0(p\ length) 1..1(P\ +\ 2\  length)$ = xyz \newline where $|y| > 0, |xy| <= p, xy^{i}z \in L \ for \  any \ i >=0$\newline 
+say xy is in the first block of O if we set i = 1000..0 (infinite), then there will be a string that has more Os than 1s and thus would be a contradiction. meaning that the second language is non-regular. \newline since we know that there will always be a definite amount of $0^n$ and the union would accept either $1^n$ or $1^{n+2}$ amount of 1s. we can say that the union of these two languages will also be non-regular since whichever case is chosen the language can be disproven using the pumping lemma either from class or above. 
+\item $L_3=\{0^m1^n\ |\ 0\le m\le 50{\rm\ and\ }n\ge 100\}$ \newline
+$L_3$ can be written as $(\epsilon \ U\  0\  U\  00\  U \ 000\  U..U\  0^{50}) 1^{100} (1)^*$ there it is regular since it can be written as a RE. 
+\end{enumerate}
+
+Collaborators: Ethan Young, Will Elliot and Yang Zhang
+
+\item (3, 6 points) Consider the following similarly defined languages.
+
+\begin{enumerate}
+\item Let $B=\{1^kw\ |\ w\in\{0,1\}^*{\rm\ and\ }w{\rm\ contains\ at\ least\ }k{\rm\ 1s,\ for\ any\ }k\ge1\}$. Prove that $B$ is a regular language by giving its simple regular expression.
+\newline $1^{k} (0^* 1)^k (0U1)*$
+
+\item Let $C=\{1^kw\ |\ w\in\{0,1\}^*{\rm\ and\ }w{\rm\ contains\ at\ most\ }k{\rm\ 1s,\ for\ any\ }k\ge1\}$. Prove by the pumping lemma that $C$ is not regular.
+\newline 
+Assume the language is a RL, Then PL apples to the language. \newline 
+There exist a constant P, where P = k -1\newline 
+select s = $1^{P}w$ which is an element of the language and has length greater than (or equal to P). \newline 
+= $1..1 \ (P \ length) w \ (at \ most\  has\   P\  1s)$ = xyz \newline where $|y| > 0, |xy| <= p, xy^{i}z \in L \ for \  any \ i >=0$\newline 
+consider y = 1 and z = w. If we choose i = 3. The string $xy^3z$ would yield a string that would have more 1s in the first block of 1s and the string in z would never be able to match that same number of 1s therefore the string would not be able to be accepted by the language and thus is a contradiction to the pumping lemma. 
+\end{enumerate}
+
+Collaborators: Ethan Young, Will Elliot and Yang Zhang
+
+\item (6 points) Let $\Sigma=\{0, 1, +, =\}$ and $$ADD=\{x=y+z\ |\ x, y, z {\rm\ are\ binary\ numbers\ and\ }x{\rm\ is\ the\ sum\ of\ }y{\rm\ and\ }z\}.$$
+For example, $110=01+101\in ADD$. Prove by the pumping lemma that ADD is not regular. (Hint: Select a string, where $x=z$ and $y=0$.)
+
+Assume the language is a RL, Then PL apples to the language. \newline 
+There exist a constant P \newline 
+select s = $1^P = 0 + 1^P$ which is an element of the language and has length greater than (or equal to P). \newline 
+= $1..1(p length) = 0 + 1..1(P length)$ = xyz \newline where $|y| > 0, |xy| <= p, xy^{i}z \in L \ for \  any \ i >=0$\newline 
+
+say $y = 1^+$ and we set $i = 0$ then the string $xy^0z$ would be $1^{P'} = 0 + 1^P \notin ADD$ (P' $<$ P)
+A contradiction
+
+Collaborators: Ethan Young, Will Elliot and Yang Zhang
+
+\item (6 points) Prove by the pumping lemma that $B=\{vgv\ |\ v, g\in\{0,1\}^+\}$ is not regular. Note that $\{0,1\}^+=\{0,1\}^*-\epsilon$.
+(Hint: Select $s=v1v$ for some simple string $v$.)
+\newline 
+Assume the language is a RL, Then PL apples to the language. \newline 
+There exist a constant P \newline 
+select s = $0^p10^p$ which is an element of the language and has length greater than (or equal to P). \newline 
+= $0..0(p length)1 0..0(P length)$ = xyz \newline where $|y| > 0, |xy| <= p, xy^{i}z \in L \ for \  any \ i >=0$\newline 
+consider $x = 0^{P-k} y = 0^k$ say we set i = 0 then we would have $xy^0z$ would be $0^{P'} 10^P \notin ADD$ (P' = P - k $<$ P) A contradiction
+
+Collaborators: Ethan Young, Will Elliot and Yang Zhang
+
+\end{enumerate}
+
+\end{document}

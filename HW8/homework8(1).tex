@@ -1,0 +1,117 @@
+\documentclass[11pt]{article}
+
+\usepackage{exscale}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{times,mathptm}
+\usepackage{epsfig}
+
+\textwidth 6.5truein          
+\textheight 9.0truein
+\oddsidemargin 0.0in
+\topmargin -0.6in
+
+\parindent 0pt          
+\parskip 5pt
+\def\baselinestretch{1.1}
+
+\begin{document}
+
+\begin{LARGE}
+\centerline {\bf CSci 423 Homework 8}
+\end{LARGE}
+\vskip 0.25cm
+
+\centerline{Due: 12:30 pm, Thursday, 11/14/2019}
+\centerline{Daniel Quiroga}
+Collaborators: Ethan Young, Will Elliot, Yang Zhang, Kevin Li
+\begin{enumerate}
+
+\item $E_{CFG}=\{<G>\ |\ G{\rm\ is\ a\ CFG}{\rm\ and\ }L(G)=\emptyset\}$.\newline
+We first convert $G_L$ to a CNF of the language $E_{CFG}$ with input $<G>$, and $w$ represents the string of nonterminals $\in G_L$, (A, B, C...).\newline
+Let the terminals in $G_L$ be a TM that takes in $<M_T>$.\newline
+Then $G_M$ will be the TM that takes in $w$:
+\begin{enumerate}
+\item It first runs $<M_{Ta}>$ on $A \in G_L$.
+\item If it accepts, then it will move onto the next terminal
+\item If $<M_{Ta}>$ rejects, then $G_M$ rejects.
+\item It will loop until all terminals in $G_L$ are accepted and return and empty string.
+\item Then $G_M$ accepts. Essentially if the language is just empty then we have a Turing machine for the specified language. 
+\end{enumerate}
+Since we have constructed a Turing machine that can decide $E_{CFG}$, so L is a decidable language.
+
+
+
+
+\item $L=\{<M>\ |\ {\rm TM\ }M {\rm\ accepts\ at\ least\ one\ string\ in\ no\ more\ than\ 9\ steps}\}$\newline
+M* decides languages that follow the input $<M>$. Gets the length of $|<M>|$ (at most 9) and stores the value. \newline 
+Next, run the inputs length up to 9 / up to 9 steps as well. $\rightarrow$ accepts if M accepts at least one of the strings within 9 steps. \newline 
+Since the inputs are a finite length, the machine will eventually halt and thus is decidable. 
+
+
+
+\end{enumerate}
+
+
+
+(Hint for (b): What is the maximum number of tape squares can a TM scan in no more than 9 steps?)
+
+\item (5, 5 points) Prove the following closure properties of TRLs.
+\begin{enumerate}
+\item If $L_1$ and $L_2$ are Turing-recognizable, so is $L_1L_2$.
+\newline For decidable languages $L_1$ and $L_2$, let $M_1$ and $M_2$ recognize them, respectively. 
+Design M that recognizes $L_1L_2$\newline 
+TM M $=$ on input w \newline
+For every way to split $w = w_1 w_2$ \newline 
+$\rightarrow$ Run $M_1$ on $w_1$ & $M_2$ on $w_2$ \newline 
+$\rightarrow$ If both accpet, accept \newline
+$\rightarrow$ else: continue with the next iteration of the $w_1 w_2$ combo\newline 
+If none are accepted after loop, reject \newline \newline 
+Since there is a turing machine that recognizes $L_1 L_2$  , then $L_1 L_2$  is turing-recognizable
+
+\item If $L_1$ and $L_2$ are Turing-recognizable, so is $L_1\cap L_2$
+\newline For recognizable languages $L_1$ and $L_2$, let $M_1$ and $M_2$ recognize them, respectively. 
+Design M that recognizes $L_1\cap L_2$ \newline 
+TM M $=$ on input w \newline \newline  
+$\ \ $ run $M_1$ on w \newline 
+$\ \ $ If $M_1$ accepts:\newline 
+$\rightarrow$ Run $M_2$ on w \newline 
+$\rightarrow$ If $M_2$ accepts, accept w \newline 
+$\rightarrow$ else: reject w\newline 
+$\ \ $ else: reject w \newline \newline 
+Since there is a turing machine that recognizes $L_1\cap L_2$ , then $L_1\cap L_2$  is turing-recognizable
+
+
+
+
+
+\end{enumerate}
+
+\item (6 points) Let $B$ be the set of all {\bf infinite} binary strings over $\{0, 1\}$. Show that $B$ is uncountable.
+\newline \newline
+If B only contains binary strings, we know that each position will have either a 1 or 0. Therefore we write out all of the strings in B via Table format.
+\begin{center}
+\begin{tabular}{ c c }
+	$B_0$ & *111111...1... \\
+	$B_1$ & 1*01111...1... \\
+	$B_2$ & 10*0111...1... \\
+	.... & .... \\
+	$B_x$ & 000000...*0... \\
+	.... & ....
+\end{tabular}
+\end{center}
+By combining all of the * in the string, using diagonalization we can create a string composed of all the stars in their corresponding position and change the 0's to 1's and 1's to 0's. This would give a string that is not in B, therefore we can say that B is uncountable! 
+
+\item (6 points) Let $L=\{w_{2i}, \forall i=1, 2, 3, \ldots\ |\ w_{2i}\not\in L(M_i)\}$. Prove by contradiction that $L$ is non-TR.
+\newline
+Proof: Assume $A_D$ is TR. \newline 
+$\exists$ TM M that accepts $A_D$ i.e. $L(M) = A_D$ = $L(M_{2i})$\newline 
+M = $M_{2i}$ for some i \newline 
+$w_{2i} \notin A_D$ iff $w_{2i} \in L(M_{2i})$ (by def of $A_D$)\newline 
+$w_{2i} \notin A_D$ iff $w_{2i} \notin L(M_{2i})$ (by $L(M_{2i}) = A_D$)
+
+
+\end{enumerate}
+
+\end{document}

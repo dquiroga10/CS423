@@ -1,0 +1,110 @@
+\documentclass[11pt]{article}
+
+\usepackage{exscale}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{times,mathptm}
+\usepackage{epsfig}
+
+\textwidth 6.5truein          
+\textheight 9.0truein
+\oddsidemargin 0.0in
+\topmargin -0.6in
+
+\parindent 0pt          
+\parskip 5pt
+\def\baselinestretch{1.1}
+
+\begin{document}
+
+\begin{LARGE}
+\centerline {\bf CSci 423 Homework 6}
+\end{LARGE}
+\vskip 0.25cm
+
+\centerline{Due: 12:30 pm, Thursday, 10/24/2019}
+\centerline{Daniel Quiroga}
+Collaborators: Ethan Young, Will Elliot, Yang Zhang
+\begin{enumerate}
+
+\item (5, 6, 7 points) Use the pumping lemma for CFLs to prove that the following languages are not context-free.
+
+\begin{enumerate}
+
+\item $L_1=\{0^n1^n0^n1^n\ |\ n\ge0\}$
+\newline Assume $L_1$ is CF \newline 
+Then the PL for CFL applies to $L_1$ \newline 
+Let P be the constant in the PL \newline 
+Select s = $0^p1^p0^p1^p$and $|s| = 4p > p$\newline 
+= $uv^ixy^iz$ with $|vy| > 0 \ , \ |vxy| \le p $ and $i \ge0 $\newline \newline 
+case 1 and 2 vxy is in either the first or second block of 0s: \newline 
+i = 0 $v^0xy^0 \rightarrow 0^{p'}1^p0^p1^p\newline 
+\ \ \ \ \ \ \ \ \ \rightarrow 0^p1^p0^{p'}1^p \ \ (P' < P)$ hence the string is not in the language since there is not the same number of elements in each block. \newline \newline 
+case 3 and 4 vxy is in either the first or second block of 1s: \newline 
+i = 0 $v^0xy^0 \rightarrow 0^p1^{p'}0^p1^p\newline 
+\ \ \ \ \ \ \ \ \ \rightarrow 0^p1^p0^p1^{p'} \ \ (P' < P)$ hence the string is not in the language since there is not the same number of elements in each block. \newline \newline 
+case 5 vxy contains substring 01: \newline 
+i = 0 $v^0xy^0 \rightarrow 0^{p'}1^{p''}0^p1^p \newline 
+\rightarrow 0^p1^p0^{p'}1^{p''} \ \ (P' < P) \ \ (P'' < P)$ hence the string is not in the language since there is not the same number of elements in each block. \newline \newline 
+case 6 vxy contains substring 10: \newline 
+i = 0 $v^0xy^0 \rightarrow 0^p1^{p''}0^{p'}1^p \ \ (P' < P) \ \ (P'' < P)$ hence the string is not in the language since there is not the same number of elements in each block.\newline \newline 
+A contradiction was reached at all cases therefore the language is not context free
+
+\item $L_2=\{w\in\{1, 2, 3, 4\}^*\ |\ n_1(w) = n_2(w) {\rm\ and\ } n_3(w)=n_4(w)\}$ 
+(Hint: $s=1^p2^p3^p4^p$ does not work.)
+\newline Assume $L_2$ is CF \newline 
+Then the PL for CFL applies to $L_2$ \newline 
+Let P be the constant in the PL \newline 
+Select s = $1^p3^p2^p4^p$and $|s| = 4p > p$\newline 
+= $uv^ixy^iz$ with $|vy| > 0 \ , \ |vxy| \le p $ and $i \ge0$ \newline \newline 
+case 1,2,3,4 vxy is in one of the blocks of numbers:\newline 
+i = 0 $v^0xy^0 \rightarrow 1^{p'}3^p2^p4^p\newline 
+\rightarrow 1^p3^{p'}2^p4^p \newline 
+\rightarrow 1^p3^p2^{p'}4^p \newline
+\rightarrow 1^p3^p2^p4^{p'} \ \ (P' < P) $ one of the blocks will automatically make at least on of the inequalities not true therefore making the string not accepted by the language \newline \newline 
+case 5,6,7 vxy is in one of the blocks of numbers:\newline 
+i = 0 $v^0xy^0 \rightarrow 1^{p'}3^{p''}2^p4^p \newline 
+\rightarrow 1^p3^{p''}2^{p'}4^p \newline 
+\rightarrow 1^p3^p2^{p'}4^{p''}\ \ \ \ (P' < P) \ \ (P'' < P)$ no matter what case you have, it will cause both of the equalities in the language to fail therefore the string created with any of the cases will be rejected by the language. \newline \newline 
+A contradiction was reached at all cases therefore the language is not context free
+
+
+\item $L_3=\{t_1\#t_2\#\cdots \#t_k\ |\ k\ge2, {\rm\ each\ } t_i\in\{a, b\}^* {\rm\ and\ } t_i=t_j {\rm\ for\ some\ }i\not=j\}$
+(Hint: Choose $s$ with one $\#$.)
+\newline Assume $L_3$ is CF \newline 
+Then the PL for CFL applies to $L_3$ \newline 
+Let P be the constant in the PL \newline 
+Select s = $a^{p/2}b^{p/2} \# a^{p/2}b^{p/2}$ where the two blocks of size p and $|s| = 2p+1 > p$\newline 
+= $uv^ixy^iz$ with $|vy| > 0 \ , \ |vxy| \le p $ and $i \ge0$ \newline \newline 
+case 1 and 2 vxy is solely in the first block of ab($t_1$) or in the second block of ab($t_2$): \newline 
+i = 0 $v^0xy^0$ the strings that represent $t_1$ and $t_2$ will never be equal to one another in this case since they lose characters meaning the lengths will not be same meaning that strings can never be the same therefore they are not in the language. \newline \newline 
+case 3 and 4 v contains the '$\#$' or y contains the '$\#$':\newline
+i = 0 $v^0xy^0$ would give a string that does not have a $\#$ meaning that it can not be accepted by the language and therefore is not in it. \newline \newline 
+case 5 when x is containing the $'\#'$ so that would mean v is in the block of b and y in the block of a: \newline 
+i = 0 $v^0xy^0 \rightarrow a^p b^{p'} \# a^{p''}b^p \ \ \ \ (P' < P) \ \ (P'' < P)$ which would give not an equal number of a's in both of the strings and also not an equal number of b's in both of the strings. Therefore the it was be rejected by the language. \newline \newline 
+A contradiction was reached at all cases therefore the language is not context free
+
+
+\end{enumerate}
+
+\item (2 points each) Determine whether or not the following languages are CFLs. Justification of your answers are helpful but not required.
+
+\begin{enumerate}
+\item $A=\{a^mb^na^mb^n\ |\ m,n\ge0\}$
+\newline This is not CF
+\item $B=\{a^mb^na^nb^m\ |\ m,n\ge0\}$
+\newline This is CF
+\item $C=\{a^ib^jc^kd^l\ |\ i+j\le k+l\}$
+\newline This is CF
+\item $D=\{a^ib^jc^kd^l\ |\ i+l\le j+k\}$
+\newline This is CF
+\item $E=\{a^nww^Rb^n\ |\ n\ge0, w\in\{a, b\}^*\}$
+\newline This is CF
+\item $F=\{wa^nb^nw^R\ |\ n\ge0, w\in\{a, b\}^*\}$
+\newline This is CF
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}

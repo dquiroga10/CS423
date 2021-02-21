@@ -1,0 +1,105 @@
+\documentclass[11pt]{article}
+
+\usepackage{exscale}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{times,mathptm}
+\usepackage{epsfig}
+
+\textwidth 6.5truein          
+\textheight 9.0truein
+\oddsidemargin 0.0in
+\topmargin -0.6in
+
+\parindent 0pt          
+\parskip 5pt
+\def\baselinestretch{1.1}
+
+\begin{document}
+
+\begin{LARGE}
+\centerline {\bf CSci 423 Homework 7}
+\end{LARGE}
+\vskip 0.25cm
+
+\centerline{Due: 12:30 pm, Thursday, 11/7/2019}
+\centerline{Daniel Quiroga}
+
+Collaborators: Ethan Young, Will Elliot, Yang Zhang
+
+\begin{enumerate}
+
+\item (2, 2 points) True or false? No explanation needed.
+\begin{enumerate}
+\item A language is Turing-recognizable if and only if some nondeterministic Turing machine recognizes it.\newline
+This is True
+\item A language is Turing-decidable if and only if some nondeterministic Turing machine decides it.\newline
+This is True
+\end{enumerate}
+
+\item (2, 2, 4 points)  Let $\Sigma=\{0,1\}$.
+For each of the following $\delta$ functions, describe the corresponding language $L(M)$.
+\begin{enumerate}
+\item $\delta(q_0,0)=(q_0,B,R)$, $\delta(q_0,1)=(q_1,B,R)$, $\delta(q_1,1)=(q_1,B,R)$,
+and $\delta(q_1,B)=(q_{accept},B,R)$. \newline 
+$L(M) = 0^n 1^m\ n\ge 0 \  m \ge 1$ 
+
+\item $\delta(q_0,0)=(q_1,1,R)$, $\delta(q_1,1)=(q_2,0,L)$,, $\delta(q_2,1)=(q_0,1,R)$,
+and $\delta(q_1,B)=(q_{accept},B,R)$.\newline 
+$L(M) =0 \ 1^n \ \ n\ge 0$
+
+\item $\delta(q_0,0)=\{(q_0,1,R),(q_1,1,R)\}$, $\delta(q_1,1)=\{(q_2,0,L)\}$, 
+$\delta(q_2,1)=\{(q_0,1,R)\}$, and $\delta(q_1,B)$ $=\{(q_{accept},B,R)\}$. 
+(Note: This is a nondeterministic TM.) \newline 
+$L(M) = 0(0\cup 1)^*$
+
+
+\end{enumerate}
+
+\item (8 points) Give the implementation-level description of a Turing machine that {\bf decides} the following language 
+$$L=\{w\in\{0, 1\}^*\ |\ w{\rm\ contains\ twice\ as\ many\ 0s\ as\ 1s}\}$$\newline 
+TM $=$ on input = w = twice as many 0's as 1's \newline 
+step 1: If sees a B, accept \newline 
+step 2: move right until sees a 1 or B \newline 
+if B, move left -- if sees a 0, reject else: accept \newline 
+elif sees 1:  
+\begin{enumerate}
+\item mark with an X 
+\item move left until at the front
+\item move right until 0, mark with Y
+\item move right until next 0, mark with Y
+\end{enumerate}
+else (when there is only 0s in the string): reject (might be already included in the first if but just in case) \newline
+step 3: go back to the beginning of the string, move right until X \newline goto step 2
+
+\item (5, 5 points) Prove the following closure properties of TDLs.
+\begin{enumerate}
+\item If $L_1$ and $L_2$ are Turing-decidable, so is $L_1L_2$.
+\newline For decidable languages $L_1$ and $L_2$, let $M_1$ and $M_2$ decide them, respectively. 
+Design M that decides $L_1L_2$\newline 
+TM M $=$ on input w \newline
+For every way to split $w = w_1 w_2$ \newline 
+$\rightarrow$ Run $M_1$ on $w_1$ & $M_2$ on $w_2$ \newline 
+$\rightarrow$ If both accpet, accept \newline
+$\rightarrow$ else: continue with the next iteration of the $w_1 w_2$ combo\newline 
+If none are accepted after loop, reject \newline \newline 
+Since there is a turing machine that describes $L_1 L_2$  , then $L_1 L_2$  is turing-decidable
+
+
+\item If $L_1$ and $L_2$ are Turing-decidable, so is $L_1\cap L_2$\newline 
+For decidable languages $L_1$ and $L_2$, let $M_1$ and $M_2$ decide them, respectively. 
+Design M that decides $L_1\cap L_2$ \newline 
+TM M $=$ on input w \newline \newline  
+$\ \ $ run $M_1$ on w \newline 
+$\ \ $ If $M_1$ accepts:\newline 
+$\rightarrow$ Run $M_2$ on w \newline 
+$\rightarrow$ If $M_2$ accepts, accept w \newline 
+$\rightarrow$ else: reject w\newline 
+$\ \ $ else: reject w \newline \newline 
+Since there is a turing machine that describes $L_1\cap L_2$ , then $L_1\cap L_2$  is turing-decidable
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}
